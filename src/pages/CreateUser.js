@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import CreateUserForm from "../components/CreateUserForm";
 
-function CreateUser({setLoggedIn, setUserInformation}) {
+function CreateUser({ setLoggedIn, setUserInformation }) {
   const signUpUser = useCallback((e) =>  {
     e.preventDefault();
     const email = e.currentTarget.email.value;
@@ -27,7 +27,7 @@ function CreateUser({setLoggedIn, setUserInformation}) {
         const errorMessage = error.message;
         console.warn({ error, errorCode, errorMessage })
       });
-  }, []);
+  }, [setLoggedIn, setUserInformation]);
   
   return (
     <div>
