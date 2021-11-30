@@ -39,8 +39,8 @@ function App() {
           setUserInformation({});
           setLoggedIn(false);
         }
+        setLoading(false); 
       });
-      setLoading(false)
     }
   }, [appInitialized]);
 
@@ -56,14 +56,14 @@ function App() {
       });
   }
 
-  if (loading) return null;
+  if (loading || !appInitialized) return null;
 
   return (
     <>
       <Header logout={logout} loggedIn={loggedIn} />
       <Router>
         <Routes>
-          <Route path="/user/:id" element={loggedIn ? <UserProfile userInformation={userInformation}/> : <Navigate to="/" />} />
+          <Route path="/user/:id" element={loggedIn ? (<UserProfile userInformation={userInformation}/>) : (<Navigate to="/" />)} />
           <Route path="/create" element={!loggedIn ? (<CreateUser setLoggedIn={setLoggedIn} setUserInformation={setUserInformation} />) : (<Navigate to={`/user/${userInformation.uid}`} />)} />
           <Route path="/" element={!loggedIn ? (<Login setLoggedIn={setLoggedIn} setUserInformation={setUserInformation}/>) : (<Navigate to={`/user/${userInformation.uid}`} />)} />
         </Routes>
